@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (){
+    return \Illuminate\Support\Facades\Redirect::route('todo');
 });
+
+Route::resource('todo', 'TodoController');
+Route::resource('todo_mirror', 'TodoMirrorController');
