@@ -23,12 +23,12 @@ class EditTodoMirrorJob
     public function handle()
     {
         try {
-            $this->todoMirror->fill(request()->only('name', 'description'));
-            Todo::where('id', $this->todoMirror->id)->fill(request()->only('name', 'description'));
-            return Redirect::route('todo_mirror')->with('status', 'Todo mirror updated successfully');
+            $this->todoMirror->fill(request()->only('name', 'description'))->save();
+            Todo::where('id', $this->todoMirror->id)->first()->fill(request()->only('name', 'description'))->save();
+            return Redirect::route('todo_mirror.index')->with('status', 'Todo mirror updated successfully');
         }catch (\Exception $e) {
             Log::error($e);
-            return Redirect::route('todo_mirror')->with('status', 'Todo mirror not updated successfully for the following error ', $e);
+            return Redirect::route('todo_mirror.index')->with('status', 'Todo mirror not updated successfully for the following error ' .  $e);
         }
 
     }

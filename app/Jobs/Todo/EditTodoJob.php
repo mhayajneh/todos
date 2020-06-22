@@ -24,12 +24,12 @@ class EditTodoJob
     public function handle()
     {
         try {
-            $this->todo->fill(request()->only('name', 'description'));
-            TodoMirror::where('id', $this->todo->id)->fill(request()->only('name', 'description'));
-            return Redirect::route('todo')->with('status', 'Todo updated successfully');
+            $this->todo->fill(request()->only('name', 'description'))->save();
+            TodoMirror::where('id', $this->todo->id)->first()->fill(request()->only('name', 'description'))->save();
+            return Redirect::route('todo.index')->with('status', 'Todo updated successfully');
         }catch (\Exception $e) {
             Log::error($e);
-            return Redirect::route('todo')->with('status', 'Todo was not updated successfully for the following error ', $e);
+            return Redirect::route('todo.index')->with('status', 'Todo was not updated successfully for the following error ' . $e);
         }
 
     }

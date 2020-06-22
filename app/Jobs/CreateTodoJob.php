@@ -22,16 +22,16 @@ class CreateTodoJob
             Todo::create(request()->only('name', 'description'));
             TodoMirror::create(request()->only('name', 'description'));
             if (Route::currentRouteName() == "todo.store") {
-                return Redirect::route('todo')->with('status', 'Todo stored successfully');
+                return Redirect::route('todo.index')->with('status', 'Todo stored successfully');
             }else{
-                return Redirect::route('todo_mirror')->with('status', 'Todo mirror stored successfully');
+                return Redirect::route('todo_mirror.index')->with('status', 'Todo mirror stored successfully');
             }
         }catch (\Exception $e) {
             Log::error($e);
             if (Route::currentRouteName() == "todo.store") {
-                return Redirect::route('todo')->with('status', 'Todo was not stored successfully for the following error ', $e);
+                return Redirect::route('todo.index')->with('status', 'Todo was not stored successfully for the following error ', $e);
             }else{
-                return Redirect::route('todo_mirror')->with('status', 'Todo was not stored successfully for the following error ', $e);
+                return Redirect::route('todo_mirror.index')->with('status', 'Todo was not stored successfully for the following error ', $e);
             }
         }
 

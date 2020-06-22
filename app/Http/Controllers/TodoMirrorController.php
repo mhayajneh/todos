@@ -27,15 +27,18 @@ class TodoMirrorController extends Controller
         return $this->dispatch(new CreateTodoJob());
     }
 
-    public function edit(TodoMirror $todo){
+    public function edit($mirrorID){
+        $todo = TodoMirror::find($mirrorID);
         return view('todo-mirror.edit', compact('todo'));
     }
 
-    public function update(TodoRequest $request, TodoMirror $todo){
+    public function update(TodoRequest $request, $mirrorID){
+        $todo = TodoMirror::find($mirrorID);
         return $this->dispatch(new EditTodoMirrorJob($todo));
     }
 
-    public function destroy(TodoMirror $todo){
+    public function destroy($mirrorID){
+        $todo = TodoMirror::find($mirrorID);
         return $this->dispatch(new DeleteTodoMirrorJob($todo));
     }
 }

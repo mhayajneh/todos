@@ -26,10 +26,10 @@ class DeleteTodoJob
         try {
             $this->todo->delete();
             TodoMirror::where('id', $this->todo->id)->delete();
-            return Redirect::route('todo')->with('status', 'Todo deleted successfully');
+            return Redirect::route('todo.index')->with('status', 'Todo deleted successfully');
         }catch (\Exception $e) {
             Log::error($e);
-            return Redirect::route('todo')->with('status', 'Todo was not deleted successfully for the following error ', $e);
+            return Redirect::route('todo.index')->with('status', 'Todo was not deleted successfully for the following error ' . $e);
         }
     }
 }

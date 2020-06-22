@@ -11,7 +11,7 @@
 |
 */
 Route::get('/', function (){
-    return \Illuminate\Support\Facades\Redirect::route('todo');
+    return \Illuminate\Support\Facades\Redirect::route('todo.index');
 });
 
 Route::resource('todo', 'TodoController');
